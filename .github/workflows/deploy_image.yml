@@ -1,0 +1,63 @@
+name: Upload Docker hub image
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: "Test and Deploy version on Dockerhub"
+    steps:
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Install dependencies
+        run: npm i
+      - name: Run linters
+        run: npm start lint
+      # - name: Run test
+      #   run: npm test
+      - name: Build package
+        run: npm start build
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - id: get_version
+        uses: battila7/get-version-action@v2
+      - run: echo ${{ steps.get_version.outputs.version }}
+      - name: Get smart tag
+        id: prepare
+        uses: Surgo/docker-smart-tag-action@v1
+        with:
+          docker_image: cashstory/api
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ steps.prepare.outputs.tag }}
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - name: Update repo description
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: cashstory/api
+      - name: Image digest
+        run: echo ${{ steps.prepare.outputs.tag }}
+

@@ -1,0 +1,43 @@
+.swagger-ui .topbar {
+  display: none;
+  background-color: white;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .12);
+}
+
+.swagger-ui .topbar a {
+  color: black;
+}
+
+.swagger-ui .info .title {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.swagger-ui .computed-url code {
+  font-family: sans-serif;
+}
+
+.swagger-ui .info a {
+  color: #55f6a9;
+  font-size: 16px;
+}
+
+.swagger-ui .info>div {
+  padding-bottom: 8px;
+}
+
+.swagger-ui .info a:hover {
+  color: #55f6a9;
+  text-decoration: underline;
+  font-size: 16px;
+}
+
+.swagger-ui .info__extdocs {
+  display: none;
+}
+
+.swagger-ui .link p {
+  font-size: 19px;
+  margin: 0;
+  padding-top: 5px;
+}

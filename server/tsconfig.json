@@ -1,0 +1,15 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+      "resolveJsonModule": true,
+      "paths": {
+        "*": [
+          "types/*"
+        ]
+      },
+      "outDir": "../dist",
+      "baseUrl": "",
+      "module": "commonjs"
+    }
+  }
+  

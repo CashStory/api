@@ -1,0 +1,1764 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "description": "<h1>Overview</h1> <p>CASHSTORY provides a cloud business OS environment that connects Business &amp; IT professionals and their applications throught Data Science. Built on top of Nebular, Docker and Kubernetes open source projects, CASHSTORY OS combines advanced interoperability, lightning-fast distribution, and robust security with an agile web management and deployment framework to accelerate digital transformation and innovation.</p> <p>The mission of CASHSTORY is to organize financial information to make it universally accesisble and usefull.</p> <p>With CASHSTORY OS, you can :</p> <ul> <li>Power your business intelligence software with all your Financial &amp; IT data</li> <li>Ensure any business applications interoperability with the Data Hub module</li> <li>Leverage powerful workspace management functionality</li> <li>Embed business applications in your browser tab and run like native apps</li> <li>Rapidly migrate your legacy apps to the cloud without compromising UX or feature set</li> <li>Innovate faster, by ensuring fast and seamless deployment of your apps</li> <li>Stay secure as vulnerabilities can’t compromise your operating system – or other apps</li> </ul> <h1 >What&#39;s Next</h1> <ul> <li><a href=\"https://calendly.com/jeremyravenel\" target=\"_blank\">Book a demo</a>  to see the OS in action</li> <li>Start hiring CASHSTORY team to customize your OS</li> <li>Read the <a href=\"/https://docs.cashstory.com/getting_started/guide\">Getting Started</a> section, or try out additional tutorials to familiarize yourself further with the OS.</li> </ul>",
+    "version": "1.0.0",
+    "title": "CashStory API (aka Darknight)",
+    "termsOfService": "https://cashstory.com/en/legal",
+    "contact": {
+      "email": "bob@cashstory.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "auth",
+      "description": "Login and password"
+    },
+    {
+      "name": "me",
+      "description": "Logged user"
+    },
+    {
+      "name": "user",
+      "description": "Operations about user"
+    },
+    {
+      "name": "workspace",
+      "description": "Operations about workspace"
+    },
+    {
+      "name": "workspace box",
+      "description": "Manage box in workspace section"
+    },
+    {
+      "name": "smarttable",
+      "description": "Display table"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "User authentication",
+        "description": "",
+        "operationId": "user.authToken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ILogin"
+              }
+            }
+          },
+          "description": "user login",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "password doesn't match"
+          },
+          "403": {
+            "description": "user not found"
+          }
+        }
+      }
+    },
+    "/auth/resetpwd": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Reset user password",
+        "description": "",
+        "operationId": "user.resetpwd",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ILogin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "no email"
+          }
+        }
+      }
+    },
+    "/users/me": {
+      "get": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Get my user infos",
+        "description": "Logged user",
+        "operationId": "user.getMe",
+        "responses": {
+          "200": {
+            "description": "Your user data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IUser"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Update my user infos",
+        "description": "",
+        "operationId": "user.updateMe",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IUser"
+              }
+            }
+          },
+          "description": "Updated user object",
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Delete user",
+        "description": "Delete my user infos",
+        "operationId": "user.deleteMe",
+        "responses": {
+          "200": {
+            "description": "sucess",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/users/me/event": {
+      "post": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Event on user",
+        "description": "",
+        "operationId": "user.addEvent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "prev": {
+                    "type": "object"
+                  },
+                  "next": {
+                    "type": "object"
+                  },
+                  "meta": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/users/me/favorite": {
+      "post": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Add favorite in logged user workspace",
+        "description": "",
+        "operationId": "user.addFavorite",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/IFavorite"
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/users/me/favorite/del": {
+      "post": {
+        "tags": [
+          "me"
+        ],
+        "summary": "Delete favorite",
+        "description": "",
+        "operationId": "user.delFavorite",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/IFavorite"
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get all users",
+        "description": "",
+        "operationId": "user.getAll",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The numbers of items to return",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IUser"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Insert users",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "user.insert",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IUser"
+                }
+              }
+            }
+          },
+          "description": "List of user object",
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/users/count": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Count users",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "user.count",
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user by id",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "user.get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The user id that needs to be fetched.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IUser"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user by id",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "user.update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Updated user id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IUser"
+              }
+            }
+          },
+          "description": "Updated user object",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IUser"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user by id",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "user.delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of user that needs to be deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/workspaces": {
+      "get": {
+        "tags": [
+          "workspace"
+        ],
+        "summary": "Get all workspace",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "workspace.getAll",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "The numbers of items to return",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of workspace",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IWp"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/workspaces/count": {
+      "get": {
+        "tags": [
+          "workspace"
+        ],
+        "summary": "Count workspace",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "workspace.count",
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/workspaces/insert": {
+      "post": {
+        "tags": [
+          "workspace"
+        ],
+        "summary": "Insert workspace",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "workspace.insert",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IWp"
+                }
+              }
+            }
+          },
+          "description": "Insert workspace",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/workspaces/{id}": {
+      "get": {
+        "tags": [
+          "workspace"
+        ],
+        "summary": "Get workspace by id",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "workspace.get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "workspace id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IWp"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "workspace"
+        ],
+        "summary": "Update workspace by id",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "workspace.update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IWp"
+              }
+            }
+          },
+          "description": "Updated workspace object",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IWp"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "workspace"
+        ],
+        "summary": "Delete workspace by id",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "workspace.delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/section/{sectionId}/box": {
+      "post": {
+        "tags": [
+          "workspace box"
+        ],
+        "summary": "Add new box in a section",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "workspace.addNewBoxToExistingSection",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspaceId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "sectionId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IBox"
+              }
+            }
+          },
+          "description": "Add box object",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBox"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/workspaces/{workspaceId}/section/{sectionId}/box/{boxId}": {
+      "put": {
+        "tags": [
+          "workspace box"
+        ],
+        "summary": "Update workspace box by id",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "workspace.updateExistingBox",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspaceId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "sectionId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "boxId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IBox"
+              }
+            }
+          },
+          "description": "Updated box object",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IBox"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "workspace box"
+        ],
+        "summary": "Delete workspace box by id",
+        "security": [
+          {
+            "BearerAuth": [
+              "admin"
+            ]
+          }
+        ],
+        "description": "",
+        "operationId": "workspace.deleteBoxFromSection",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspaceId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "sectionId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "boxId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/smarttables/{workspaceId}/{databaseId}/{collectionId}": {
+      "get": {
+        "tags": [
+          "smarttable"
+        ],
+        "summary": "Get smarttable",
+        "description": "Only works if you are admin",
+        "operationId": "smartTable.get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspaceId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "databaseId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "collectionId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISmartTable"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/smarttables/{workspaceId}/{databaseId}/{collectionId}/count": {
+      "get": {
+        "tags": [
+          "smarttable"
+        ],
+        "summary": "Count smarttable",
+        "description": "",
+        "operationId": "smartTable.count",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspaceId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "databaseId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "collectionId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "401": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/smarttables/{workspaceId}/{databaseId}/{collectionId}/insert": {
+      "post": {
+        "tags": [
+          "smarttable"
+        ],
+        "summary": "Insert smarttable",
+        "description": "",
+        "operationId": "smartTable.insert",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspaceId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "databaseId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "collectionId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISmartTable"
+              }
+            }
+          },
+          "description": "Insert smarttable object",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "401": {
+            "description": "error"
+          }
+        }
+      }
+    },
+    "/smarttables/{workspaceId}/{databaseId}/{collectionId}/{docId}": {
+      "put": {
+        "tags": [
+          "smarttable"
+        ],
+        "summary": "Update smartatable from db collection",
+        "description": "",
+        "operationId": "smarttable.update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspaceId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "databaseId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "collectionId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "docId",
+            "description": "",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISmartTable"
+              }
+            }
+          },
+          "description": "Updated smarttable object",
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "smarttable"
+        ],
+        "summary": "Delete smartable by id",
+        "description": "",
+        "operationId": "smarttable.delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "workspaceId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "databaseId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "collectionId",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "docId",
+            "description": "",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "error"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "BasicAuth": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "BearerAuth": [
+        "read",
+        "write"
+      ]
+    }
+  ],
+  "servers": [
+    {
+      "url": "https://{environment}.cashstory.com/api/v1",
+      "variables": {
+        "environment": {
+          "default": "darkknight",
+          "enum": [
+            "darkknight",
+            "darkknight.dev"
+          ]
+        }
+      }
+    }
+  ],
+  "components": {
+    "requestBodies": {
+      "IFavorite": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/IFavorite"
+            }
+          }
+        },
+        "required": true
+      }
+    },
+    "securitySchemes": {
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "IToken": {
+        "type": "object",
+        "required": [
+          "token"
+        ],
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "ILogin": {
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "IUser": {
+        "type": "object",
+        "required": [
+          "creatorId",
+          "tmpAccount",
+          "tmpToken",
+          "email",
+          "picture",
+          "phoneNumber",
+          "password",
+          "firstName",
+          "lastName",
+          "emailUrl",
+          "searchUrl",
+          "company",
+          "role",
+          "manager",
+          "userRole",
+          "reset",
+          "workspaceCurrent",
+          "workspaces",
+          "services"
+        ],
+        "properties": {
+          "creatorId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "tmpAccount": {
+            "type": "boolean"
+          },
+          "tmpToken": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "phoneNumber": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "emailUrl": {
+            "type": "string"
+          },
+          "searchUrl": {
+            "type": "string"
+          },
+          "company": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/ICompany"
+              }
+            }
+          },
+          "role": {
+            "type": "string"
+          },
+          "manager": {
+            "type": "string"
+          },
+          "userRole": {
+            "type": "string"
+          },
+          "reset": {
+            "type": "boolean"
+          },
+          "workspaceCurrent": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/IWp"
+              }
+            }
+          },
+          "workspaces": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/IWorkspaceList"
+              }
+            }
+          },
+          "services": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/IServiceList"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "User"
+        }
+      },
+      "IWp": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "section": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "box": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "object",
+            "items": {
+              "$ref": "#/components/schemas/ILogo"
+            }
+          }
+        },
+        "xml": {
+          "name": "IWp"
+        }
+      },
+      "IBox": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "urlBg"
+        ],
+        "properties": {
+          "_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "urlBg": {
+            "type": "string"
+          },
+          "iframe": {
+            "type": "boolean"
+          },
+          "hideElements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "login": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/ILogin"
+              }
+            }
+          },
+          "smartTable": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/ISmartTable"
+              }
+            }
+          },
+          "cors": {
+            "type": "string"
+          },
+          "class": {
+            "type": "string"
+          },
+          "buttons": {
+            "type": "object",
+            "properties": {
+              "notebookUrl": {
+                "type": "string"
+              },
+              "expandCollapse": {
+                "type": "boolean"
+              },
+              "openNewWindow": {
+                "type": "boolean"
+              },
+              "backTo": {
+                "type": "boolean"
+              }
+            }
+          },
+          "authMethod": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "autoExpand": {
+            "type": "boolean"
+          }
+        },
+        "xml": {
+          "name": "IBox"
+        }
+      },
+      "IFavorite": {
+        "type": "object",
+        "required": [
+          "name",
+          "description",
+          "column"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "attachement": {
+            "type": "string"
+          },
+          "attachement_type": {
+            "type": "string",
+            "enum": [
+              "image",
+              "video",
+              "iframe"
+            ]
+          },
+          "target": {
+            "type": "string"
+          },
+          "wp": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/IWp"
+              }
+            }
+          },
+          "target_type": {
+            "type": "string",
+            "enum": [
+              "internal",
+              "external",
+              "external_same"
+            ]
+          },
+          "column": {
+            "type": "integer"
+          }
+        },
+        "xml": {
+          "name": "IFavorite"
+        }
+      },
+      "ISmartTable": {
+        "type": "object",
+        "required": [
+          "database",
+          "collection",
+          "settings"
+        ],
+        "properties": {
+          "database": {
+            "type": "string"
+          },
+          "collection": {
+            "type": "string"
+          },
+          "settings": {
+            "type": "object"
+          },
+          "model": {
+            "type": "string"
+          },
+          "rights": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/IRights"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "ISmartTable"
+        }
+      },
+      "ICompany": {
+        "type": "object",
+        "required": [
+          "name",
+          "size",
+          "whatUse",
+          "kind"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "whatUse": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          }
+        },
+        "xml": {
+          "name": "ICompany"
+        }
+      },
+      "IWorkspaceList": {
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "properties": {
+          "id": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/IWorkspaceConfig"
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "IWorkspaceList"
+        }
+      },
+      "IWorkspaceConfig": {
+        "type": "object",
+        "required": [
+          "name",
+          "news",
+          "favorites"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "news": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "lang": {
+                "type": "string"
+              },
+              "class": {
+                "type": "string"
+              },
+              "sources": {
+                "type": "string"
+              },
+              "categories": {
+                "type": "string"
+              }
+            }
+          },
+          "favorites": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "class": {
+                "type": "string"
+              },
+              "boxes": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "$ref": "#/components/schemas/IBox"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "xml": {
+          "name": "IWorkspaceConfig"
+        }
+      },
+      "IServiceList": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/IService"
+              }
+            }
+          }
+        }
+      },
+      "IService": {
+        "type": "object",
+        "required": [
+          "authMethod",
+          "login"
+        ],
+        "properties": {
+          "authMethod": {
+            "type": "string"
+          },
+          "login": {
+            "type": "object",
+            "properties": {
+              "items": {
+                "$ref": "#/components/schemas/ILogin"
+              }
+            }
+          }
+        }
+      },
+      "ILogo": {
+        "type": "object",
+        "required": [
+          "url",
+          "name"
+        ],
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "IRights": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "string",
+            "enum": [
+              "GET",
+              "PUT",
+              "DELETE",
+              "POST"
+            ]
+          }
+        }
+      },
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

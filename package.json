@@ -1,0 +1,140 @@
+{
+  "name": "cashstory_dark_knight",
+  "version": "1.2.0b13",
+  "license": "MIT",
+  "author": "Martin donadieu",
+  "description": "api DarkKnight",
+  "engines": {
+    "node": "10.x",
+    "npm": "6.4.1",
+    "yarn": "1.15.2"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "npm start lint"
+    }
+  },
+  "scripts": {
+    "start": "nps",
+    "postinstall": "npm start init.env",
+    "commit": "npx conventional-commit-cli",
+    "test": "jest --clearCache && jest --forceExit"
+  },
+  "private": true,
+  "dependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@shelf/jest-mongodb": "^1.2.2",
+    "@types/jest": "^26.0.9",
+    "@types/nodemailer": "^6.4.0",
+    "@types/npm": "^2.0.31",
+    "axios": "^0.19.2",
+    "base-x": "^3.0.8",
+    "basic-auth": "^2.0.1",
+    "bcryptjs": "^2.4.3",
+    "bip39": "^3.0.2",
+    "cachegoose": "git://github.com/Akhil-bridge/cachegoose.git#master",
+    "cluster": "^0.7.7",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
+    "crypto-js": "^4.0.0",
+    "dialogflow": "^1.2.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.6.0",
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.6.2",
+    "express-jwt": "^6.0.0",
+    "express-session": "^1.17.1",
+    "form-data": "^3.0.0",
+    "http-proxy-middleware": "^1.0.5",
+    "jest": "^26.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "mime": "^2.4.6",
+    "moment": "^2.27.0",
+    "mongodb": "^3.6.0",
+    "mongoose": "^5.9.28",
+    "mongoose-encryption": "^2.0.2",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "multer-gridfs-storage": "^4.2.0",
+    "node-version": "^2.0.0",
+    "nodemailer": "^6.4.11",
+    "npm-version": "^1.1.0",
+    "object-to-querystring": "^1.0.8",
+    "passport": "^0.4.1",
+    "passport-http": "^0.3.0",
+    "passport-jwt": "^4.0.0",
+    "passport-linkedin-oauth2": "^2.0.0",
+    "passport-local": "^1.0.0",
+    "passport-saml": "^1.3.4",
+    "passport-saml-metadata": "^2.3.0",
+    "password-generator": "^2.3.2",
+    "project-name-generator": "^2.1.7",
+    "prom-client": "^12.0.0",
+    "request": "^2.88.2",
+    "save": "^2.4.0",
+    "semver": "^7.3.2",
+    "slack": "^11.0.2",
+    "swagger-ui-express": "^4.1.4",
+    "ts-jest": "^26.1.4",
+    "tslib": "^2.0.1",
+    "twilio": "^3.48.2"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^9.1.1",
+    "@types/express": "^4.17.7",
+    "@types/express-serve-static-core": "^4.17.9",
+    "@types/mongodb": "^3.5.25",
+    "@types/mongoose": "^5.7.36",
+    "@types/multer": "^1.4.3",
+    "@types/multer-gridfs-storage": "^4.0.1",
+    "@types/node": "^14.0.27",
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "commitlint": "^9.1.0",
+    "eslint-config-airbnb-typescript": "^9.0.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.5",
+    "husky": "^4.2.5",
+    "json": "^9.0.6",
+    "nodemon": "^2.0.4",
+    "nps": "^5.10.0",
+    "nps-utils": "^1.7.0",
+    "standard-version": "^8.0.2",
+    "superagent": "^6.0.0",
+    "supertest": "^4.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "testPathIgnorePatterns": [
+      "app-version.ts"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/__tests__/*.+(ts|tsx|js)"
+    ]
+  }
+}
