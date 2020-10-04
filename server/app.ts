@@ -17,6 +17,7 @@ const MongoStore = require('connect-mongo')(session);
 const cookieParser = require('cookie-parser');
 
 const app: express.Express = express();
+app.disable('x-powered-by');
 seedDb();
 initPrometeus(app);
 promBeforeEach(app);
