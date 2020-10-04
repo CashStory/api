@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.2.2 (2020-10-04)
+
+### Fix
+
+- tag branch name
+- sync version with tags
+- remove doublons step
+- remove dialogflow dependency
+- ci auto tag
+- ci auto tag
+
 ## 1.2.0b13 (2020-10-04)
 
 ### Fix
