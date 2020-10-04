@@ -1,6 +1,6 @@
 {
   "name": "cashstory_dark_knight",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "author": "Martin donadieu",
   "description": "api DarkKnight",
@@ -41,7 +41,7 @@
     "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
     "crypto-js": "^4.0.0",
-    "dialogflow": "^1.2.0",
+    "dialogflow": "^1.2.1",
     "dotenv": "^8.2.0",
     "eslint": "^7.6.0",
     "express": "^4.17.1",
