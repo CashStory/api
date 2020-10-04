@@ -6,7 +6,6 @@ import FileCtrl from './controllers/FileCtrl';
 import UserCtrl from './controllers/UserCtrl';
 import WorkspaceCtrl from './controllers/WorkspaceCtrl';
 import SmartTableCtrl from './controllers/SmartTableCtrl';
-import dialogflow from './services/dialogflow';
 import { promBeforeEach, promAfterEach } from './services/prometheus';
 import {
   proxyAll, checkIframeAllowed, getStatic, runNotebook,
@@ -138,7 +137,6 @@ export default function routes(app: Express) {
   router.route('/smarttables/:databaseId/:collectionId/:docId')
     .delete(isAuth(), smartTable.isAllowed, smartTable.catchExistingModel, smartTable.delete);
 
-  router.route('/dialogflow').post(isAuth(), dialogflow.post);
   router.route('/notebook/:jupyterName/:token/start').get(runNotebook);
   router.route('/notebook/:jupyterName/:token').get(getStatic);
   router.route('/proxy').all(proxyAll);
