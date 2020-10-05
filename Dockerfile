@@ -2,7 +2,7 @@ FROM node:lts-alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
-ENV VERSION 1.2.2
+ENV VERSION 1.2.3
 LABEL org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.name="DarkKnight API" \
   org.label-schema.description="API of cashstory" \
