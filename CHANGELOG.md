@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.2.5 (2020-10-05)
+
+### Fix
+
+- :construction_worker: fix issue in ci bump version
+
 ## 1.2.4 (2020-10-05)
 
 ### Fix
