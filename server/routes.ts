@@ -46,7 +46,7 @@ export default function routes(app: Express) {
           { _id: req.auth.user._id, tmpAccount: false },
         );
         const wsData = await Model.findOne({ _id: req.params.workspaceId });
-        if (wsData.creatorId.toString() !== userData._id.toString()) {
+        if (wsData.creatorId.toHexString() !== userData._id.toString() && !(wsData.shared_users.some((e) => (e.email === userData.email && e.role === 'edit')))) {
           next(new Error('Unable to perform actions on this workspace'));
         }
       }
@@ -112,6 +112,12 @@ export default function routes(app: Express) {
   router.route('/workspaces/:id').put(isAuth(), workspace.update);
   router.route('/workspaces/:id').delete(isAuth('admin'), workspace.delete);
   router.route('/workspaces/duplicate').post(isAuth(), user.duplicateWS);
+
+  // workspace share apis
+  router.route('/workspaces/share/:id').get(isAuth(), workspace.getShare);
+  router.route('/workspaces/share/:id').post(isAuth(), workspace.addShare);
+  router.route('/workspaces/share/:id/link').post(isAuth(), workspace.toggleLink);
+  router.route('/workspaces/share/:id/:email').delete(isAuth(), workspace.deleteShare);
 
   // workspace box
   router.route('/workspaces/:workspaceId/section/:sectionId/box').post(isOwner(), workspace.addNewBoxToExistingSection);

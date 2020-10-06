@@ -155,8 +155,29 @@ export default class UserController extends BaseCtrl {
 
   getMe = async (req: RequestAuth, res: Response): Promise<Response> => {
     try {
+      const wp = {
+        name: 'My Workspace',
+        news: {
+          name: 'News',
+          lang: 'en',
+        },
+        favorites: {
+          name: 'Favorites',
+          boxes: [],
+        },
+      };
       const doc: IUser = await this.Model.findOne({ _id: req.auth.user._id, tmpAccount: false })
         .cache(redisCacheLifeTime(), `${req.auth.user._id}_getme`);
+      const workSpaces = await this.WpModel.find({
+        'shared_users.email': doc.email,
+      });
+      workSpaces.forEach((element) => {
+        if (!Object.keys(doc.workspaces).hasOwnProperty.call(element.id)) {
+          const ipWs: IWorspaceList = { [`${element.id}`]: { ...wp, ...element } };
+          doc.workspaces = ipWs;
+        }
+      });
+      await doc.save();
       const jsonObj = doc.toJSON();
       this.saveTransaction(req.auth, 'getMe', jsonObj, {}, {});
       return res.status(200).json(jsonObj);

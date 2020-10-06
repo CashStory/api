@@ -122,9 +122,24 @@ export interface IWorspace extends Document {
   creatorId: ObjectId;
   logo: ILogo;
   bobVoice?: boolean;
+  linkShared: Boolean;
   menu: IMenu[];
+  shared_users: IShared[];
   sections: ISection[];
 }
+
+export interface IShared extends Document {
+  email: string;
+  role: string;
+}
+
+const Shared = new Schema(
+  {
+    email: String,
+    role: String,
+  },
+  { _id: false },
+);
 
 export const workspaceSchema = new Schema(
   {
@@ -136,7 +151,9 @@ export const workspaceSchema = new Schema(
     creatorId: ObjectId,
     logo: Logo,
     bobVoice: Boolean,
+    linkShared: Boolean,
     menu: [Menu],
+    shared_users: [Shared],
     sections: [Section],
   },
   { timestamps: true },
@@ -152,7 +169,7 @@ workspaceSchema.set('toJSON', {
   },
 });
 
-const clearRedisCache = () => {
+export const clearRedisCache = () => {
   if (typeof cachegoose.clearCache === 'function') {
     redisCacheCustomKeys.workspaceKeys.forEach((key) => {
       cachegoose.clearCache(key, null);
