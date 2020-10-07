@@ -18,12 +18,9 @@ Other tools and technologies used:
 ```
 MONGODB_URI=mongodb://URLOFYOURMONGO
 MAX_WORKER=1
-WEKAN_URI=https://task.cashstory.com
 FRONT_URI=https://bob.dev.cashstory.com
 FTP_URI=https://ftp.cashstory.com
 FTP_AUTH_TOKEN=APIKEY
-JUPYTER_URI=https://datascience.cashstory.com
-JUPYTER_AUTH_TOKEN=APIKEY
 BACK_URI=https://darkknight.dev.cashstory.com
 SECRET_TOKEN=RANDOMTOKEN
 ENCRYPT_KEY= Result of => openssl rand -base64 32;
@@ -43,7 +40,6 @@ SLACK_NAME=NAME
 SLACK_CHANNEL=#CHANNEL
 API_KEY_CLOCKIFY=APIKEY
 API_KEY_WAKATIME=APIKEY
-CRON_RECURRENCE=CRON
 TZ=Europe/Paris
 DK_ENV=dev
 WORKSPACEDEFAULT=5eaa9b7c87e99ef2430a270a
@@ -79,10 +75,8 @@ services:
       - SLACKTEE_TOKEN=TOKEN
       - SLACK_NAME=NAME
       - SLACK_CHANNEL=#CHANNEL
-      - WEKAN_URI=https://task.cashstory.com
       - FRONT_URI=https://bob.dev.cashstory.com
       - FTP_URI=https://ftp.cashstory.com
-      - FTP_AUTH_TOKEN=TOKEN
       - CS_DATABASE=darkknight-dev
       - EMAIL_HOST=HOST
       - EMAIL_PORT=PORT
@@ -91,9 +85,6 @@ services:
       - EMAIL_PASSWORD=PASS
       - EMAIL_FROM=bob@cashstory.com
       - EMAIL_ADMIN=bob@cashstory.com, jeremy.ravenel@cashstory.com
-      - JUPYTER_URI=https://datascience.cashstory.com
-      - JUPYTER_AUTH_TOKEN=TOKEN
-      - CRON_RECURRENCE=58 12 * * *
       - DK_ENV=dev
       - API_KEY_CLOCKIFY=APIKEY+g5t
 ```
