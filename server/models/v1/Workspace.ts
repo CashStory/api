@@ -122,7 +122,7 @@ export interface IWorspace extends Document {
   creatorId: ObjectId;
   logo: ILogo;
   bobVoice?: boolean;
-  linkShared: Boolean;
+  linkShared: boolean;
   menu: IMenu[];
   shared_users: IShared[];
   sections: ISection[];
