@@ -5,6 +5,7 @@ import BaseCtrl from './BaseCtrl';
 import { RequestAuth } from '../models/v1/Auth';
 import { passport, getActiveApps } from '../services/auth';
 import { generateUrl, getDomain } from '../services/inject';
+import { UserModel } from '../models/v1/User';
 
 const path = require('path');
 
@@ -44,13 +45,28 @@ export default class AuthCtrl extends BaseCtrl {
     }
   };
 
+  register = async (req, res: Response): Promise<any> => {
+    const UserMod = UserModel();
+    const userFound = await UserMod.findOne({ email: req.body.email });
+    if (!userFound) {
+      const userData = {
+        email: req.body.email,
+        password: req.body.password,
+        firstName: req.body.full_name,
+      };
+      await new UserMod(userData).save();
+      return res.status(200).json(userData);
+    }
+    return res.status(500).json({ message: 'Email already registred' });
+  };
+
   login = async (req: RequestAuth, res: Response, next: NextFunction): Promise<any> => {
     const { provider } = req.params;
     return passport.authenticate(provider, (err, profile) => {
       if (err) {
         console.error('Auth', err.error);
         this.saveTransaction({ user: { _id: null, role: null } }, 'login', {}, {}, { error: err.error, username: req.body.username });
-        return res.status(403).json({ error: err.message });
+        return res.status(200).json({ error: err.message });
       }
       if (provider === 'login') {
         const token = jwt.sign(profile.auth, process.env.SIGN_KEY, { expiresIn: '10d' });
