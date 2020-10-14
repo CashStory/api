@@ -75,7 +75,7 @@ export default function routes(app: Express) {
   // Auth
   router.route('/auth/resetpwd').post(user.resetpwd);
   router.route('/auth/saml').get(auth.getActiveVendors);
-  router.route('/register').post(auth.register);
+  router.route('/auth/register').post(auth.register);
   router.route('/auth/:provider').all(auth.login);
   router.route('/auth/saml/:provider/acs').post(auth.getAcsSaml);
   router.route('/auth/oauth/:provider/callback').get(auth.authCallBack);
