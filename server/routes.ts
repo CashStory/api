@@ -14,8 +14,6 @@ import { passport, checkAuth } from './services/auth';
 import AuthCtrl from './controllers/AuthCtrl';
 import { RequestAuth } from './models/v1/Auth';
 import { apiServe, apiDoc } from './services/apiDoc';
-import { IUser, UserModel } from './models/v1/User';
-import { WorkspaceModel } from './models/v1/Workspace';
 
 export default function routes(app: Express) {
   const router = Router();
@@ -24,8 +22,6 @@ export default function routes(app: Express) {
   const workspace = new WorkspaceCtrl();
   const smartTable = new SmartTableCtrl();
   const auth = new AuthCtrl();
-  const userMod = UserModel();
-  const Model = WorkspaceModel();
 
   const isAuth = (minRole: string = 'any') => async (req: RequestAuth, res: Response, next: NextFunction): Promise<void> => {
     // if (!req.headers.authorization && req.query.authorization) {
@@ -35,23 +31,6 @@ export default function routes(app: Express) {
       passport.authenticate('basic', { session: false }, checkAuth(minRole, req, res, next))(req, res, next);
     } else {
       passport.authenticate('auth-check', checkAuth(minRole, req, res, next))(req, res, next);
-    }
-  };
-
-  const isOwner = (minRole: string = 'any') => async (req: RequestAuth, res: Response, next: NextFunction) => {
-    try {
-      passport.authenticate('auth-check', checkAuth(minRole, req, res, next))(req, res, next);
-      if (req.auth.user.role !== 'admin') {
-        const userData: IUser = await userMod.findOne(
-          { _id: req.auth.user._id, tmpAccount: false },
-        );
-        const wsData = await Model.findOne({ _id: req.params.workspaceId });
-        if (wsData.creatorId.toHexString() !== userData._id.toString() && !(wsData.shared_users.some((e) => (e.email === userData.email && e.role === 'edit')))) {
-          next(new Error('Unable to perform actions on this workspace'));
-        }
-      }
-    } catch {
-      next(new Error('Unable to perform actions on this workspace'));
     }
   };
 
@@ -108,10 +87,10 @@ export default function routes(app: Express) {
   router.route('/workspaces').get(isAuth('admin'), workspace.getAll);
   router.route('/workspaces/count').get(isAuth('admin'), workspace.count);
   router.route('/workspaces').post(isAuth('admin'), workspace.insert);
-  router.route('/workspaces/:id').get(isAuth(), workspace.get);
-  router.route('/workspaces/:id').put(isAuth(), workspace.update);
+  router.route('/workspaces/:id').get(isAuth('owner'), workspace.get);
+  router.route('/workspaces/:id').put(isAuth('owner'), workspace.update);
   router.route('/workspaces/:id').delete(isAuth('admin'), workspace.delete);
-  router.route('/workspaces/duplicate').post(isAuth(), user.duplicateWS);
+  router.route('/workspaces/duplicate').post(isAuth('owner'), user.duplicateWS);
 
   // workspace share apis
   router.route('/workspaces/share/:id').get(isAuth(), workspace.getShare);
@@ -120,10 +99,10 @@ export default function routes(app: Express) {
   router.route('/workspaces/share/:id/:email').delete(isAuth(), workspace.deleteShare);
 
   // workspace box
-  router.route('/workspaces/:workspaceId/section/:sectionId/box').post(isOwner(), workspace.addNewBoxToExistingSection);
-  router.route('/workspaces/:workspaceId/section/:sectionId/box/:boxId').put(isOwner(), workspace.updateExistingBox);
-  router.route('/workspaces/:workspaceId/section/:sectionId/box/:boxId').delete(isOwner(), workspace.deleteBoxFromSection);
-  router.route('/workspaces/:workspaceId/section/:sectionId/box').put(isOwner(), workspace.updateExistingBoxPositions);
+  router.route('/workspaces/:workspaceId/section/:sectionId/box').post(isAuth('owner'), workspace.addNewBoxToExistingSection);
+  router.route('/workspaces/:workspaceId/section/:sectionId/box/:boxId').put(isAuth('owner'), workspace.updateExistingBox);
+  router.route('/workspaces/:workspaceId/section/:sectionId/box/:boxId').delete(isAuth('owner'), workspace.deleteBoxFromSection);
+  router.route('/workspaces/:workspaceId/section/:sectionId/box').put(isAuth('owner'), workspace.updateExistingBoxPositions);
 
   // Smarttable
   router.route('/smarttables/:databaseId/:collectionId')

@@ -8,12 +8,15 @@ import { readFileSync, readdir } from 'fs';
 import { join } from 'path';
 import { Response, NextFunction } from 'express';
 import { generateUrlApi, ssoCreateUserIfNotExist, getLinkedInSSOConfig } from './inject';
-import { IUser } from '../models/v1/User';
+import { IUser, UserModel } from '../models/v1/User';
 import { Auth, RequestAuth } from '../models/v1/Auth';
+import { WorkspaceModel } from '../models/v1/Workspace';
 
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 const samlApps: string[] = [];
+const Model = WorkspaceModel();
+const UserMod = UserModel();
 
 passport.serializeUser<any, any>((user, done) => {
   done(null, user);
@@ -246,6 +249,18 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
   }
   try {
     req.auth = auth;
+    if (req.auth.user.role !== 'admin' && minRole === 'owner') {
+      const reqUserId = req.params.workspaceId || req.params.id;
+      const wsData = await Model.findOne({ _id: reqUserId });
+      const userData: IUser = await UserMod.findOne(
+        { _id: req.auth.user._id, tmpAccount: false },
+      );
+      if ((wsData.creatorId && wsData.creatorId.toString() !== req.auth.user._id.toString())
+      && !(wsData.shared_users.some((e) => (e.email === userData.email && e.role === 'edit')))) {
+        res.status(401).json({ error: 'Unable to perform actions on this workspace' });
+        return;
+      }
+    }
     if (minRole === 'admin' && req.auth.user.role !== 'admin') {
       res.status(401).json({ error: 'invalid user role' });
       return;
