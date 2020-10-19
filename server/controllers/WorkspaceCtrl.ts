@@ -257,4 +257,24 @@ export default class WorkspaceCtrl extends BaseCtrl {
     this.saveTransaction(req.auth, 'deleteShare', oldValJson, newValJson, {});
     return res.status(200).json(newValJson);
   };
+
+  requestAccess = async (req: RequestAuth, res: Response): Promise<Response> => {
+    const userData = await userMod.findOne({ _id: req.auth.user._id });
+    const wsData = await this.Model.findOne({ _id: req.body.id });
+    const ownerData = await userMod.findOne({ _id: wsData.creatorId });
+    let template = loadEmail('request-access');
+    template = template.split('%REQUESTED_EMAIL%').join(`${userData.email}`);
+    template = template.split('%WORKSPACE_NAME%').join(`${wsData.name}`);
+    template = template.split('%WORKSPACE_ID%').join(`${wsData.id}`);
+    const mailOptions = {
+      id_from: req.auth.user._id,
+      from: process.env.EMAIL_FROM,
+      to: ownerData.email,
+      subject: 'Request to share workspace',
+      text: 'Request to share workspace',
+      html: template,
+    };
+    await sendMail(mailOptions);
+    return res.status(200).json({ status: 'success' });
+  };
 }

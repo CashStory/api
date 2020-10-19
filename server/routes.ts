@@ -97,6 +97,7 @@ export default function routes(app: Express) {
   router.route('/workspaces/share/:id').post(isAuth(), workspace.addShare);
   router.route('/workspaces/share/:id/link').post(isAuth(), workspace.toggleLink);
   router.route('/workspaces/share/:id/:email').delete(isAuth(), workspace.deleteShare);
+  router.route('/workspaces/request').post(isAuth(), workspace.requestAccess);
 
   // workspace box
   router.route('/workspaces/:workspaceId/section/:sectionId/box').post(isAuth('owner'), workspace.addNewBoxToExistingSection);
