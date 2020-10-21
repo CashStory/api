@@ -64,6 +64,7 @@ export const seedDb = async () => {
       },
       name: 'admin',
       bobVoice: true,
+      shared_users: [],
       menu: [
         {
           title: 'Data Story',
@@ -934,6 +935,19 @@ export const seedDb = async () => {
               url: 'https://console.dialogflow.com/api-client/#/login',
               autoExpand: false,
               position: 0,
+            },
+            {
+              hideElements: [],
+              name: 'Dialogflow',
+              _id: '5da87b33502d6c0abd3aa7af',
+              backgroundColor: '#a0a0a0',
+              color: '#ffffff',
+              iframe: false,
+              zoom: 100,
+              urlBg: 'https://raw.githubusercontent.com/svet4/images/master/img/create-an-intent.gif',
+              url: 'https://console.dialogflow.com/api-client/#/login',
+              autoExpand: false,
+              position: 1,
             },
           ],
           id: 5,

@@ -8,12 +8,15 @@ import { readFileSync, readdir } from 'fs';
 import { join } from 'path';
 import { Response, NextFunction } from 'express';
 import { generateUrlApi, ssoCreateUserIfNotExist, getLinkedInSSOConfig } from './inject';
-import { IUser } from '../models/v1/User';
+import { IUser, UserModel } from '../models/v1/User';
 import { Auth, RequestAuth } from '../models/v1/Auth';
+import { WorkspaceModel } from '../models/v1/Workspace';
 
 const LinkedInStrategy = require('passport-linkedin-oauth2').Strategy;
 
 const samlApps: string[] = [];
+const Model = WorkspaceModel();
+const UserMod = UserModel();
 
 passport.serializeUser<any, any>((user, done) => {
   done(null, user);
@@ -246,6 +249,32 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
   }
   try {
     req.auth = auth;
+    if (req.auth.user.role !== 'admin' && minRole === 'owner') {
+      try {
+        const reqUserId = req.params.workspaceId || req.params.id;
+        const wsData = await Model.findOne({ _id: reqUserId });
+        if (typeof wsData.creatorId !== 'undefined' && wsData.creatorId.toString() !== req.auth.user._id.toString()) {
+          const userData = await UserMod.findOne({ _id: req.auth.user._id });
+          if (wsData.shared_users.some((e) => e.email === userData.email)) {
+            wsData.shared_users.forEach(async (el) => {
+              if (el.email.toString() === userData.email.toString()) {
+                if (el.role === 'view' && req.method !== 'GET') {
+                  throw new Error('Unable to perform actions on this workspace');
+                }
+              }
+            });
+          } else if (wsData.linkShared) {
+            if (req.method !== 'GET') {
+              throw new Error('Unable to perform actions on this workspace');
+            }
+          } else {
+            throw new Error('Unable to perform actions on this workspace');
+          }
+        }
+      } catch (eRr) {
+        res.status(401).json({ error: eRr.message });
+      }
+    }
     if (minRole === 'admin' && req.auth.user.role !== 'admin') {
       res.status(401).json({ error: 'invalid user role' });
       return;
