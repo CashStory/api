@@ -938,10 +938,10 @@ export const seedDb = async () => {
             },
             {
               hideElements: [],
-              _id: '5da87b33502d6c0abd3aa7af',
               name: 'Dialogflow',
-              color: '#ffffff',
+              _id: '5da87b33502d6c0abd3aa7af',
               backgroundColor: '#a0a0a0',
+              color: '#ffffff',
               iframe: false,
               zoom: 100,
               urlBg: 'https://raw.githubusercontent.com/svet4/images/master/img/create-an-intent.gif',
