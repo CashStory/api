@@ -46,14 +46,14 @@ export default class AuthCtrl extends BaseCtrl {
     }
   };
 
-  sendRegisterEmail = async (doc: IUser) => {
+  sendRegisterEmailNotification = async (doc: IUser) => {
     try {
-      let template = loadEmail('register');
-      template = template.split('%FIRSTNAME%').join(doc.firstName);
+      let regtemplate = loadEmail('register');
+      regtemplate = regtemplate.split('%FIRSTNAME%').join(doc.firstName);
       if (doc.lastName) {
-        template = template.split('%LASTNAME%').join(doc.lastName);
+        regtemplate = regtemplate.split('%LASTNAME%').join(doc.lastName);
       } else {
-        template = template.split('%LASTNAME%').join('');
+        regtemplate = regtemplate.split('%LASTNAME%').join('');
       }
       const mailOptionsUser = {
         id_from: doc._id,
@@ -61,26 +61,26 @@ export default class AuthCtrl extends BaseCtrl {
         to: doc.email,
         subject: 'Successfully register to CashStory',
         text: 'Successfully register to CashStory',
-        html: template,
+        html: regtemplate,
       };
-      let templateUs = loadEmail('register-us');
-      templateUs = templateUs.split('%EMAIL%').join(doc.email);
-      templateUs = templateUs.split('%FIRSTNAME%').join(doc.firstName);
+      let regtemplateUs = loadEmail('register-us');
+      regtemplateUs = regtemplateUs.split('%EMAIL%').join(doc.email);
+      regtemplateUs = regtemplateUs.split('%FIRSTNAME%').join(doc.firstName);
       if (doc.company) {
-        templateUs = templateUs.split('%COMPANYNAME%').join(doc.company.name);
+        regtemplateUs = regtemplateUs.split('%COMPANYNAME%').join(doc.company.name);
       } else {
-        templateUs = templateUs.split('%COMPANYNAME%').join('');
+        regtemplateUs = regtemplateUs.split('%COMPANYNAME%').join('');
       }
-      templateUs = templateUs.split('%ROLE%').join(doc.userRole);
-      templateUs = templateUs.split('%MANAGER%').join(doc.manager);
-      templateUs = templateUs.split('%MOBILE%').join(doc.phoneNumber);
+      regtemplateUs = regtemplateUs.split('%ROLE%').join(doc.userRole);
+      regtemplateUs = regtemplateUs.split('%MANAGER%').join(doc.manager);
+      regtemplateUs = regtemplateUs.split('%MOBILE%').join(doc.phoneNumber);
       const mailOptionsAdmin = {
         id_from: doc._id,
         from: process.env.EMAIL_FROM,
         to: process.env.EMAIL_ADMIN,
         subject: `New User: ${doc.email}`,
         text: 'New User',
-        html: templateUs,
+        html: regtemplateUs,
       };
       return Promise.all([
         sendMail(mailOptionsUser),
@@ -103,7 +103,7 @@ export default class AuthCtrl extends BaseCtrl {
       };
       const newUser = await new UserMod(userData).save();
       const jsonDoc = newUser.toJSON();
-      await this.sendRegisterEmail(jsonDoc);
+      await this.sendRegisterEmailNotification(jsonDoc);
       return res.status(200).json(userData);
     }
     return res.status(500).json({ message: 'Email already registred' });
