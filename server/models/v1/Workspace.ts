@@ -126,6 +126,7 @@ export interface IWorspace extends Document {
   menu: IMenu[];
   shared_users: IShared[];
   sections: ISection[];
+  is_template: boolean;
 }
 
 export interface IShared extends Document {
@@ -152,6 +153,7 @@ export const workspaceSchema = new Schema(
     logo: Logo,
     bobVoice: Boolean,
     linkShared: Boolean,
+    is_template: Boolean,
     menu: [Menu],
     shared_users: [Shared],
     sections: [Section],
