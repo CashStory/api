@@ -92,6 +92,7 @@ export default function routes(app: Express) {
   router.route('/workspaces/:id').put(isAuth('owner'), workspace.update);
   router.route('/workspaces/:id').delete(isAuth('admin'), workspace.delete);
   router.route('/workspaces/duplicate').post(isAuth('owner'), user.duplicateWS);
+  router.route('/workspaces/templates').get(isAuth(), workspace.getTemplates);
 
   // workspace share apis
   router.route('/workspaces/share/:id').get(isAuth(), workspace.getShare);

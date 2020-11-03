@@ -162,6 +162,11 @@ export default class WorkspaceCtrl extends BaseCtrl {
     return res.status(200).json(shareVal);
   };
 
+  getTemplates = async (req: RequestAuth, res: Response): Promise<Response> => {
+    const templates = await this.Model.findOne({ is_template: true });
+    return res.status(200).json(templates);
+  };
+
   sendInvite = async (emailId, ws) => {
     let template = loadEmail('workspace-invite');
     template = template.split('%SHARED_WS%').join(`${ws.name}`);
