@@ -164,8 +164,8 @@ export default class WorkspaceCtrl extends BaseCtrl {
 
   getTemplates = async (req: RequestAuth, res: Response): Promise<Response> => {
     const templates = await this.Model.aggregate([
-      { $match: { is_template:true } },
-      { $project: { "sections.box.login" : 0} }
+      { $match: { is_template: true } },
+      { $project: { 'sections.box.login': 0 } },
     ]);
     return res.status(200).json(templates);
   };
