@@ -153,10 +153,10 @@ export const workspaceSchema = new Schema(
     logo: Logo,
     bobVoice: Boolean,
     linkShared: Boolean,
-    is_template: Boolean,
     menu: [Menu],
     shared_users: [Shared],
     sections: [Section],
+    is_template: Boolean,
   },
   { timestamps: true },
 );
