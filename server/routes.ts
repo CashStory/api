@@ -87,6 +87,7 @@ export default function routes(app: Express) {
   // workspace
   router.route('/workspaces/duplicate').post(isAuth('owner'), user.duplicateWS);
   router.route('/workspaces/templates').get(isAuth(), workspace.getTemplates);
+  router.route('/workspaces/templates/:id').post(isAuth(), workspace.applyTemplates);
   router.route('/workspaces').get(isAuth('admin'), workspace.getAll);
   router.route('/workspaces/count').get(isAuth('admin'), workspace.count);
   router.route('/workspaces').post(isAuth('admin'), workspace.insert);
