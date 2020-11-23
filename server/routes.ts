@@ -85,20 +85,22 @@ export default function routes(app: Express) {
   router.route('/users/:id').delete(isAuth('admin'), user.delete);
 
   // workspace
+  router.route('/workspaces/duplicate').post(isAuth('owner'), user.duplicateWS);
+  router.route('/workspaces/templates').get(isAuth(), workspace.getTemplates);
+  router.route('/workspaces/templates/:id').post(isAuth(), workspace.applyTemplates);
   router.route('/workspaces').get(isAuth('admin'), workspace.getAll);
   router.route('/workspaces/count').get(isAuth('admin'), workspace.count);
   router.route('/workspaces').post(isAuth('admin'), workspace.insert);
   router.route('/workspaces/:id').get(isAuth('owner'), workspace.get);
   router.route('/workspaces/:id').put(isAuth('owner'), workspace.update);
   router.route('/workspaces/:id').delete(isAuth('admin'), workspace.delete);
-  router.route('/workspaces/duplicate').post(isAuth('owner'), user.duplicateWS);
 
   // workspace share apis
+  router.route('/workspaces/request').post(isAuth(), workspace.requestAccess);
   router.route('/workspaces/share/:id').get(isAuth(), workspace.getShare);
   router.route('/workspaces/share/:id').post(isAuth(), workspace.addShare);
   router.route('/workspaces/share/:id/link').post(isAuth(), workspace.toggleLink);
   router.route('/workspaces/share/:id/:email').delete(isAuth(), workspace.deleteShare);
-  router.route('/workspaces/request').post(isAuth(), workspace.requestAccess);
 
   // workspace box
   router.route('/workspaces/:workspaceId/section/:sectionId/box').post(isAuth('owner'), workspace.addNewBoxToExistingSection);

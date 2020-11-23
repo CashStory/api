@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { ObjectId } from 'mongodb';
 import { IUser, IWorspaceList, UserModel } from '../models/v1/User';
 import BaseCtrl from './BaseCtrl';
 import { WorkspaceModel } from '../models/v1/Workspace';
@@ -160,6 +161,49 @@ export default class WorkspaceCtrl extends BaseCtrl {
   getShare = async (req: RequestAuth, res: Response): Promise<Response> => {
     const shareVal = await this.Model.findOne({ _id: req.params.id, creatorId: req.auth.user._id });
     return res.status(200).json(shareVal);
+  };
+
+  getTemplates = async (req: RequestAuth, res: Response): Promise<Response> => {
+    const templates = await this.Model.aggregate([
+      { $match: { is_template: true } },
+      { $project: { 'sections.box.login': 0 } },
+    ]);
+    return res.status(200).json(templates);
+  };
+
+  applyTemplates = async (req: RequestAuth, res: Response): Promise<Response> => {
+    const wp = {
+      name: req.body.wpName,
+      news: {
+        name: 'News',
+        lang: 'en',
+      },
+      favorites: {
+        name: 'Favorites',
+        boxes: [],
+      },
+    };
+    const template = await this.Model.aggregate([
+      {
+        $match:
+        {
+          $and: [
+            { _id: new ObjectId(req.params.id) },
+            { is_template: true },
+          ],
+        },
+      },
+      { $project: { 'sections.box.login': 0, _id: 0 } },
+    ]);
+    template[0].name = req.body.wpName;
+    template[0].is_template = false;
+    template[0].creatorId = req.auth.user._id;
+    const newWorkspace = await this.Model.insertMany(template);
+    const userDoc:IUser = await userMod.findOne({ _id: req.auth.user._id });
+    const ipWs: IWorspaceList = { [`${newWorkspace[0]._id}`]: { ...wp, ...userDoc.workspaces } };
+    userDoc.workspaces = ipWs;
+    await userDoc.save();
+    return res.status(200).json(newWorkspace);
   };
 
   sendInvite = async (emailId, ws) => {
