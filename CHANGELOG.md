@@ -2,7 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## 1.2.4b0 (2020-10-05)
+## 1.2.9 (2020-10-15)
+
+### Fix
+
+- ci dependabot
+
+## 1.2.8 (2020-10-15)
+
+### Fix
+
+- ci commitizen
+
+## 1.2.7 (2020-10-15)
+
+### Fix
+
+- ci path dependabot
+
+## 1.2.6 (2020-10-05)
+
+### Fix
+
+- :construction_worker: fix ci adding context
+
+## 1.2.5 (2020-10-05)
+
+### Fix
+
+- :construction_worker: fix issue in ci bump version
 
 ## 1.2.4 (2020-10-05)
 
