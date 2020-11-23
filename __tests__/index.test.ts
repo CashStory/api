@@ -26,6 +26,19 @@ afterAll(async () => {
 });
 
 // auth
+
+describe("Register", () => {
+
+  test(`New user registration`, async (done) => {
+    await request(app)
+      .post('/api/v1/auth/register')
+      .send('confirmPassword="fdcvdtcjghdfjx"&email="info@cweblabz.com"&full_name="Gilson Gilbert" password="fdcvdtcjghdfjx"&terms=true')
+      .expect(200)
+    done();
+  })
+
+});
+
 describe("Login and password", () => {
 
   test(`Provided existing login`, async (done) => {
