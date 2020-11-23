@@ -2,6 +2,92 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.3.0b0 (2020-11-23)
+
+### Feat
+
+- **templates**: workspace templates template preview updated
+- **templates**: workspace templates updates to workspaces
+- **templates**: workspace templates api for workspace listing
+- **templates**: workspace templates api for workspace listing
+- **templates**: workspace templates api for workspace listing
+- **templates**: workspace templates api for workspace listing
+- **templates**: workspace templates ui update for templates in sidebar
+- **register-email**: send email on register send email to user and CS on register
+- **register-email**: send email on register send email to user and CS on register
+- **request-access**: request ws access allow users to request access to workspace
+- **register**: new user registration updated api scope and added test
+- **register**: new user registration updated APIs for new user registration
+- **sharing-wp**: updated workspace sharing updated with workspace sare APIs
+
+### Fix
+
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **sonar-issues**: sonar issues fix Updated with fixes for sonar issues
+- **workspace-sharing**: workspace apis permission updated added and updated checks for various workspace conditions
+- **workspace-share**: fix share issues sharing api and workspaces api issue fixed
+- **sonar-fix**: sonar issues fix updated to fix issues from sonar
+- **sonar-fix**: sonar issues fix updated to fix issues from sonar
+- **sonar-fix**: sonar issues fix updated to fix issues from sonar
+- **sonar-fix**: sonar issues fix updated to fix issues from sonar
+- **sonar-fix**: sonar issues fix updated to fix issues from sonar
+- **sonar-fix**: sonar issues fix updated to fix issues from sonar
+- **sonar-fix**: sonar issues fix updated to fix issues from sonar
+- **sonar-fix**: sonar issues fix updated to fix issues from sonar
+- **sonar**: add id to th
+- **sonar**: fix table aria label
+- **sonar**: add id to th
+- **sonar**: resolve issue with b tag
+- sonar cloud issue table
+- sonar cloud issue
+- typo type usage
+
+### Refactor
+
+- :bug: use tidy to lint emails html
+
+## 1.2.4b0 (2020-10-05)
+
 ## 1.2.9 (2020-10-15)
 
 ### Fix
