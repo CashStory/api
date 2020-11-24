@@ -26,7 +26,7 @@
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.10.4",
-    "@shelf/jest-mongodb": "^1.2.4b0",
+    "@shelf/jest-mongodb": "^1.2.3",
     "@types/jest": "^26.0.9",
     "@types/nodemailer": "^6.4.0",
     "@types/npm": "^2.0.31",
