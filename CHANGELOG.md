@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.3.0b5 (2020-11-24)
+
+### Fix
+
+- **ci**: bump script
+- **ci**: cachegoose issue
+
+## 1.3.0b4 (2020-11-24)
+
+### Fix
+
+- **ci**: set docker version alpine
+
+## 1.3.0b3 (2020-11-24)
+
+### Fix
+
+- **ci**: update engine version
+
+## 1.3.0b2 (2020-11-24)
+
+### Fix
+
+- package version
+
+## 1.3.0b1 (2020-11-23)
+
+## 1.3.0b0 (2020-11-23)
+
 ## 1.3.0b4 (2020-11-24)
 
 ### Fix
