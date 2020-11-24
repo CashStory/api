@@ -15,7 +15,6 @@
   },
   "scripts": {
     "start": "npx nps",
-    "postinstall": "npm start init.env",
     "commit": "npx conventional-commit-cli",
     "test": "jest --clearCache && jest"
   },
