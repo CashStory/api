@@ -29,6 +29,4 @@ RUN chmod -R 777 /app/saml/meta
 # install dependency
 RUN npm i
 
-# build server
-RUN npm start build
 CMD [ "node", "dist/server/app.js" ]
