@@ -5,9 +5,7 @@
   "author": "Martin donadieu",
   "description": "api DarkKnight",
   "engines": {
-    "node": "10.x",
-    "npm": "6.4.1",
-    "yarn": "1.15.2"
+    "node": "15.x"
   },
   "husky": {
     "hooks": {
