@@ -25,6 +25,8 @@ jobs:
         run: npm start lint
       # - name: Run test
       #   run: npm test
+      - name: Run Build
+        run: npm start build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
