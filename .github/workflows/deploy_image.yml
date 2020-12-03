@@ -1,9 +1,8 @@
 name: Upload Docker hub image
 
 on:
-  push:
-    tags:
-      - '*'
+  repository_dispatch:
+    types: [pypip-deployed]
 
 jobs:
   deploy:
