@@ -14,7 +14,7 @@ Other tools and technologies used:
 ## Prerequisites
 1. Install [Node.js](https://nodejs.org) and [MongoDB](https://www.mongodb.com)
 2. From project root folder install all the dependencies: `npm i`
-3. create `.env` file with theses vars
+3. create `.env` file with theses vars 
 ```
 MONGODB_URI=mongodb://URLOFYOURMONGO
 MAX_WORKER=1
