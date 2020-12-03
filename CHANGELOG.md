@@ -2,6 +2,109 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 1.3.0b18 (2020-12-03)
+
+### Fix
+
+- readme
+
+## 1.3.0b17 (2020-11-30)
+
+### Fix
+
+- **ci**: remove deprecated doc
+
+## 1.3.0b16 (2020-11-30)
+
+### Fix
+
+- **ci**: wrong docker target
+
+## 1.3.0b15 (2020-11-30)
+
+### Fix
+
+- readme project name
+
+## 1.3.0b14 (2020-11-30)
+
+## 1.3.0b13 (2020-11-30)
+
+### Fix
+
+- **ci**: remove bad step
+
+## 1.3.0b12 (2020-11-27)
+
+### Fix
+
+- **ci-fix**: updated ci fix cachegoose fix added
+
+## 1.3.0b11 (2020-11-24)
+
+### Fix
+
+- **ci**: move build phase
+
+## 1.3.0b10 (2020-11-24)
+
+### Fix
+
+- **ci**: remove post install
+
+## 1.3.0b9 (2020-11-24)
+
+### Fix
+
+- **ci**: error
+
+## 1.3.0b8 (2020-11-24)
+
+### Fix
+
+- **ci**: add bump to allowed commit name
+
+## 1.3.0b7 (2020-11-24)
+
+### Fix
+
+- **ci-update**: fix github actions cachegoose version specified 8.0.0
+
+## 1.3.0b6 (2020-11-24)
+
+### Fix
+
+- **ci-update**: fix github actions fix github actions
+
+## 1.3.0b5 (2020-11-24)
+
+### Fix
+
+- **ci**: bump script
+- **ci**: cachegoose issue
+
+## 1.3.0b4 (2020-11-24)
+
+### Fix
+
+- **ci**: set docker version alpine
+
+## 1.3.0b3 (2020-11-24)
+
+### Fix
+
+- **ci**: update engine version
+
+## 1.3.0b2 (2020-11-24)
+
+### Fix
+
+- package version
+
+## 1.3.0b1 (2020-11-23)
+
+## 1.3.0b0 (2020-11-23)
+
 ## 1.3.0b17 (2020-11-30)
 
 ### Fix
