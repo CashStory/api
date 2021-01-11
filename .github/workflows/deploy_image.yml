@@ -15,6 +15,7 @@ jobs:
         with:
           fetch-depth: 0
           token: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
+      - run: echo ${{ github.ref }}  
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
