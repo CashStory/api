@@ -31,7 +31,7 @@
     "base-x": "^3.0.8",
     "basic-auth": "^2.0.1",
     "bcryptjs": "^2.4.3",
-    "bip39": "^3.0.2",
+    "bip39": "^3.0.3",
     "cachegoose": "git://github.com/Akhil-bridge/cachegoose.git#master",
     "cluster": "^0.7.7",
     "connect-mongo": "^3.2.0",
