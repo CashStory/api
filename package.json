@@ -1,13 +1,11 @@
 {
   "name": "cashstory_dark_knight",
-  "version": "1.2.9",
+  "version": "1.3.0b21",
   "license": "MIT",
   "author": "Martin donadieu",
   "description": "api DarkKnight",
   "engines": {
-    "node": "10.x",
-    "npm": "6.4.1",
-    "yarn": "1.15.2"
+    "node": "15.x"
   },
   "husky": {
     "hooks": {
@@ -16,8 +14,7 @@
     }
   },
   "scripts": {
-    "start": "nps",
-    "postinstall": "npm start init.env",
+    "start": "npx nps",
     "commit": "npx conventional-commit-cli",
     "test": "jest --clearCache && jest"
   },
@@ -26,7 +23,7 @@
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-typescript": "^7.10.4",
-    "@shelf/jest-mongodb": "^1.2.4b0",
+    "@shelf/jest-mongodb": "^1.2.3",
     "@types/jest": "^26.0.9",
     "@types/nodemailer": "^6.4.0",
     "@types/npm": "^2.0.31",
@@ -87,7 +84,7 @@
   "devDependencies": {
     "@commitlint/config-conventional": "^9.1.1",
     "@types/express": "^4.17.7",
-    "@types/express-serve-static-core": "^4.17.9",
+    "@types/express-serve-static-core": "^4.17.18",
     "@types/mongodb": "^3.5.25",
     "@types/mongoose": "^5.7.36",
     "@types/multer": "^1.4.3",
