@@ -57,4 +57,3 @@ jobs:
             GIT_AUTH_TOKEN=${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - name: Image digest
         run: echo ${{ steps.prepare.outputs.tag }}
-
