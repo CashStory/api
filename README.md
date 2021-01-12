@@ -1,4 +1,4 @@
-#  Dark Knight CashStory Api 
+#  Workspaces Api 
 
 Whole stack in [TypeScript](https://www.typescriptlang.org).
 
@@ -14,7 +14,7 @@ Other tools and technologies used:
 ## Prerequisites
 1. Install [Node.js](https://nodejs.org) and [MongoDB](https://www.mongodb.com)
 2. From project root folder install all the dependencies: `npm i`
-3. create `.env` file with theses vars
+3. create `.env` file with theses vars 
 ```
 MONGODB_URI=mongodb://URLOFYOURMONGO
 MAX_WORKER=1
@@ -49,50 +49,16 @@ NODE_ENV=production
 
 ## Run
 ### Development mode
-`npm start`: [nps](https://github.com/kentcdodds/nps#readme) execute TypeScript compiler and Express server.
+`npm start`: execute TypeScript compiler and Express server.
 
-Express files are being watched. Any change automatically creates a new bundle, restart Express server.
+Files are being watched. Any change automatically creates a new bundle, restart Express server.
 
 ### Production mode
 `npm start serve.prod`: run the project with a production bundle at [localhost:3000](http://localhost:3000) 
 
-## Deploy (with docker)
-1. Exemple using docker-compose and image cashstory/node-git:latest
-``` 
-version: '3'
 
-services:
-  darkknight:
-    image: registry.gitlab.com/bobcashstory/darkknight:dev
-    container_name: darkknight-dev
-    restart: always
-    networks:
-      - galaxy_cs-tier
-    environment:
-      - MONGODB_URI=URI
-      - SECRET_TOKEN=TOKEN
-      - PORT=8080
-      - SLACKTEE_TOKEN=TOKEN
-      - SLACK_NAME=NAME
-      - SLACK_CHANNEL=#CHANNEL
-      - FRONT_URI=https://bob.dev.cashstory.com
-      - FTP_URI=https://ftp.cashstory.com
-      - CS_DATABASE=darkknight-dev
-      - EMAIL_HOST=HOST
-      - EMAIL_PORT=PORT
-      - EMAIL_SECURE=true
-      - EMAIL_USER=apikey
-      - EMAIL_PASSWORD=PASS
-      - EMAIL_FROM=bob@cashstory.com
-      - EMAIL_ADMIN=bob@cashstory.com, jeremy.ravenel@cashstory.com
-      - DK_ENV=dev
-      - API_KEY_CLOCKIFY=APIKEY+g5t
-```
 ## Running linters
 Run `yarn start lint` to execute all lint
-
-## Wiki
-To get more help about this project, [visit the official wiki](https://github.com/DavideViolante/Angular-Full-Stack/wiki).
 
 
 ### Author

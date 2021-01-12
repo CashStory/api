@@ -1,8 +1,8 @@
-FROM node:lts-alpine
+FROM node:alpine
 
 ARG BUILD_DATE
 ARG VCS_REF
-ENV VERSION 1.2.9
+ENV VERSION 1.3.0b21
 LABEL org.label-schema.build-date=$BUILD_DATE \
   org.label-schema.name="DarkKnight API" \
   org.label-schema.description="API of cashstory" \
@@ -29,6 +29,4 @@ RUN chmod -R 777 /app/saml/meta
 # install dependency
 RUN npm i
 
-# build server
-RUN npm start build
 CMD [ "node", "dist/server/app.js" ]
