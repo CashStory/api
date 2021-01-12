@@ -20,5 +20,5 @@ jobs:
         uses: commitizen-tools/commitizen-action@0.3.0
         with:
           prerelease: 'beta'
-          branch: 'dev'
           github_token: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
+          branch: 'dev'
