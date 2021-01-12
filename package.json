@@ -27,7 +27,7 @@
     "@types/jest": "^26.0.9",
     "@types/nodemailer": "^6.4.0",
     "@types/npm": "^2.0.31",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "base-x": "^3.0.8",
     "basic-auth": "^2.0.1",
     "bcryptjs": "^2.4.3",
