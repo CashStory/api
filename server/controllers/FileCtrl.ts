@@ -10,12 +10,14 @@ export default class FileCtrl extends BaseCtrl {
 
   getModelName = () => 'fs';
 
-  upload = (req: RequestAuth, res: Response): Promise<Response> => uploadFile()(req, res, (err) => {
+  upload = (req: RequestAuth, res: Response) => uploadFile()(req, res, (err) => {
     if (err) {
-      return console.error('upload error', err);
+      console.error('upload error', err);
+      return res.status(500).send({ error: err });
     }
     if (req.file === undefined) {
-      return console.error('error: no file selected!');
+      console.error('error: no file selected!');
+      return res.status(500).send({ error: err });
     }
     this.saveTransaction(req.auth, 'upload', {}, {}, { query: { filename: req.file.filename } });
     return res.json({ filename: req.file.filename });
