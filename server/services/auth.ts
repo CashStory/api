@@ -253,25 +253,24 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
       try {
         const reqUserId = req.params.workspaceId || req.params.id;
         const wsData = await Model.findOne({ _id: reqUserId });
-        if (typeof wsData.creatorId !== 'undefined' && wsData.creatorId.toString() !== req.auth.user._id.toString()) {
+        if (typeof wsData.creatorId.toString() !== 'undefined' && wsData.creatorId.toString() !== req.auth.user._id.toString()) {
           const userData = await UserMod.findOne({ _id: req.auth.user._id });
-          // eslint-disable-next-line no-console
-          if (typeof wsData.creatorId.toString() !== 'undefined' && wsData.creatorId !== req.auth.user._id) {
-            if (wsData.shared_users.some((e) => e.email === userData.email)) {
-              wsData.shared_users.forEach(async (el) => {
-                if (el.email.toString() === userData.email.toString()) {
-                  if (el.role === 'view' && req.method !== 'GET') {
-                    throw new Error('Unable to perform actions on this workspace');
-                  }
+          if (wsData.shared_users.some((e) => e.email === userData.email)) {
+            wsData.shared_users.forEach(async (el) => {
+              if (el.email.toString() === userData.email.toString()) {
+                if (el.role === 'view' && req.method !== 'GET') {
+                  throw new Error('Unable to perform actions on this workspace');
                 }
-              });
-            } else if (wsData.linkShared) {
-              if (req.method !== 'GET') {
-                throw new Error('Unable to perform actions on this workspace');
               }
-            } else {
+            });
+          } else if (wsData.linkShared) {
+            if (req.method !== 'GET') {
               throw new Error('Unable to perform actions on this workspace');
             }
+          } else {
+            // eslint-disable-next-line no-console
+            console.log('debugging here =========<');
+            throw new Error('Unable to perform actions on this workspace');
           }
         }
       } catch (eRr) {
