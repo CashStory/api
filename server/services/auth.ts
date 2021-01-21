@@ -255,7 +255,7 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
         const wsData = await Model.findOne({ _id: reqUserId });
         if (typeof wsData.creatorId !== 'undefined' && wsData.creatorId.toString() !== req.auth.user._id.toString()) {
           const userData = await UserMod.findOne({ _id: req.auth.user._id });
-          if (typeof wsData.creatorId !== "undefined" && wsData.creatorId !== req.auth.user._id) {
+          if (typeof wsData.creatorId !== 'undefined' && wsData.creatorId !== req.auth.user._id) {
             if (wsData.shared_users.some((e) => e.email === userData.email)) {
               wsData.shared_users.forEach(async (el) => {
                 if (el.email.toString() === userData.email.toString()) {
