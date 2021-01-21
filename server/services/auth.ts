@@ -248,8 +248,8 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
     return;
   }
   try {
-      req.auth = auth;
-      try{
+    req.auth = auth;
+    try {
       if (req.auth.user.role !== 'admin' && minRole === 'owner') {
         try {
           const reqUserId = req.params.workspaceId || req.params.id;
@@ -276,10 +276,10 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
           res.status(401).json({ error: eRr.message });
         }
       }
-  } catch (e) {
+    } catch (e) {
     // eslint-disable-next-line no-console
-    console.log(e)
-  }
+      console.log(e);
+    }
     if (minRole === 'admin' && req.auth.user.role !== 'admin') {
       res.status(401).json({ error: 'invalid user role' });
       return;
