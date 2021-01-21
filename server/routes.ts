@@ -27,16 +27,15 @@ export default function routes(app: Express) {
     // if (!req.headers.authorization && req.query.authorization) {
     //   req.headers.authorization = req.query.authorization;
     // } not secure for now
-    try{
-    if (req.headers.authorization && req.headers.authorization.indexOf('Basic ') !== -1) {
-      passport.authenticate('basic', { session: false }, checkAuth(minRole, req, res, next))(req, res, next);
-    } else {
-      passport.authenticate('auth-check', checkAuth(minRole, req, res, next))(req, res, next);
+    try {
+      if (req.headers.authorization && req.headers.authorization.indexOf('Basic ') !== -1) {
+        passport.authenticate('basic', { session: false }, checkAuth(minRole, req, res, next))(req, res, next);
+      } else {
+        passport.authenticate('auth-check', checkAuth(minRole, req, res, next))(req, res, next);
+      }
+    } catch (e) {
+      throw new Error(e);
     }
-  } catch (e){
-    throw new Error(e);
-    
-  }
   };
 
   const linkedinSyncMiddlWr = (req: RequestAuth, res: Response, next: NextFunction) => {
