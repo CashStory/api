@@ -248,35 +248,38 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
     return;
   }
   try {
-    req.auth = auth;
-    // eslint-disable-next-line no-console
-    console.log(req.auth);
-    if (req.auth.user.role !== 'admin' && minRole === 'owner') {
-      try {
-        const reqUserId = req.params.workspaceId || req.params.id;
-        const wsData = await Model.findOne({ _id: reqUserId });
-        if (typeof wsData.creatorId !== 'undefined' && wsData.creatorId.toString() !== req.auth.user._id.toString()) {
-          const userData = await UserMod.findOne({ _id: req.auth.user._id });
-          if (wsData.shared_users.some((e) => e.email === userData.email)) {
-            wsData.shared_users.forEach(async (el) => {
-              if (el.email.toString() === userData.email.toString()) {
-                if (el.role === 'view' && req.method !== 'GET') {
-                  throw new Error('Unable to perform actions on this workspace 0');
+      req.auth = auth;
+      try{
+      if (req.auth.user.role !== 'admin' && minRole === 'owner') {
+        try {
+          const reqUserId = req.params.workspaceId || req.params.id;
+          const wsData = await Model.findOne({ _id: reqUserId });
+          if (typeof wsData.creatorId !== 'undefined' && wsData.creatorId.toString() !== req.auth.user._id.toString()) {
+            const userData = await UserMod.findOne({ _id: req.auth.user._id });
+            if (wsData.shared_users.some((e) => e.email === userData.email)) {
+              wsData.shared_users.forEach(async (el) => {
+                if (el.email.toString() === userData.email.toString()) {
+                  if (el.role === 'view' && req.method !== 'GET') {
+                    throw new Error('Unable to perform actions on this workspace 0');
+                  }
                 }
+              });
+            } else if (wsData.linkShared) {
+              if (req.method !== 'GET') {
+                throw new Error('Unable to perform actions on this workspace 1');
               }
-            });
-          } else if (wsData.linkShared) {
-            if (req.method !== 'GET') {
-              throw new Error('Unable to perform actions on this workspace 1');
+            } else {
+              throw new Error('Unable to perform actions on this workspace 2');
             }
-          } else {
-            throw new Error('Unable to perform actions on this workspace 2');
           }
+        } catch (eRr) {
+          res.status(401).json({ error: eRr.message });
         }
-      } catch (eRr) {
-        res.status(401).json({ error: eRr.message });
       }
-    }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log(e)
+  }
     if (minRole === 'admin' && req.auth.user.role !== 'admin') {
       res.status(401).json({ error: 'invalid user role' });
       return;
