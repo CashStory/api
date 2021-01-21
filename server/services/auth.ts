@@ -249,6 +249,8 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
   }
   try {
     req.auth = auth;
+    // eslint-disable-next-line no-console
+    console.log(req.auth);
     if (req.auth.user.role !== 'admin' && minRole === 'owner') {
       try {
         const reqUserId = req.params.workspaceId || req.params.id;
