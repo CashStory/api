@@ -1,3 +1,10 @@
+## 1.3.16 (2021-01-21)
+
+### Fix
+
+- **deploy-fix**: deployment fix
+- **deploy-fix**: deployment fix
+
 ## 1.3.15 (2021-01-21)
 
 ### Fix
