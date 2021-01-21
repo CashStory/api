@@ -253,9 +253,10 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
       try {
         const reqUserId = req.params.workspaceId || req.params.id;
         const wsData = await Model.findOne({ _id: reqUserId });
-            // eslint-disable-next-line no-console
-            console.log(wsData.creatorId.toString());
-            console.log(req.auth.user._id.toString());
+        // eslint-disable-next-line no-console
+        console.log(wsData.creatorId.toString());
+        // eslint-disable-next-line no-console
+        console.log(req.auth.user._id.toString());
         if (typeof wsData.creatorId.toString() !== 'undefined' && wsData.creatorId.toString() !== req.auth.user._id.toString()) {
           const userData = await UserMod.findOne({ _id: req.auth.user._id });
           if (wsData.shared_users.some((e) => e.email === userData.email)) {
