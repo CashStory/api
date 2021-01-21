@@ -187,7 +187,7 @@ const loadAllAuth = (saveTransaction, model, createNewuser) => {
         scope: ['r_emailaddress', 'r_liteprofile'],
       },
       async (accessToken, refreshToken, profile, done) => {
-      // asynchronous verification, for effect...
+        // asynchronous verification, for effect...
         process.nextTick(async () => {
           console.log('Profile :--', profile); // eslint-disable-line no-console
           const email = profile.emails[0].value;
@@ -249,36 +249,33 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
   }
   try {
     req.auth = auth;
-    try {
-      if (req.auth.user.role !== 'admin' && minRole === 'owner') {
-        try {
-          const reqUserId = req.params.workspaceId || req.params.id;
-          const wsData = await Model.findOne({ _id: reqUserId });
-          if (typeof wsData.creatorId !== 'undefined' && wsData.creatorId.toString() !== req.auth.user._id.toString()) {
-            const userData = await UserMod.findOne({ _id: req.auth.user._id });
+    if (req.auth.user.role !== 'admin' && minRole === 'owner') {
+      try {
+        const reqUserId = req.params.workspaceId || req.params.id;
+        const wsData = await Model.findOne({ _id: reqUserId });
+        if (typeof wsData.creatorId !== 'undefined' && wsData.creatorId.toString() !== req.auth.user._id.toString()) {
+          const userData = await UserMod.findOne({ _id: req.auth.user._id });
+          if (wsData.creatorId !== req.auth.user._id) {
             if (wsData.shared_users.some((e) => e.email === userData.email)) {
               wsData.shared_users.forEach(async (el) => {
                 if (el.email.toString() === userData.email.toString()) {
                   if (el.role === 'view' && req.method !== 'GET') {
-                    throw new Error('Unable to perform actions on this workspace 0');
+                    throw new Error('Unable to perform actions on this workspace');
                   }
                 }
               });
             } else if (wsData.linkShared) {
               if (req.method !== 'GET') {
-                throw new Error('Unable to perform actions on this workspace 1');
+                throw new Error('Unable to perform actions on this workspace');
               }
             } else {
-              throw new Error('Unable to perform actions on this workspace 2');
+              throw new Error('Unable to perform actions on this workspace');
             }
           }
-        } catch (eRr) {
-          res.status(401).json({ error: eRr.message });
         }
+      } catch (eRr) {
+        res.status(401).json({ error: eRr.message });
       }
-    } catch (e) {
-    // eslint-disable-next-line no-console
-      console.log(e);
     }
     if (minRole === 'admin' && req.auth.user.role !== 'admin') {
       res.status(401).json({ error: 'invalid user role' });
