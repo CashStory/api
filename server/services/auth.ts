@@ -259,16 +259,16 @@ const checkAuth = (minRole: string, req: RequestAuth, res: Response, next: NextF
             wsData.shared_users.forEach(async (el) => {
               if (el.email.toString() === userData.email.toString()) {
                 if (el.role === 'view' && req.method !== 'GET') {
-                  throw new Error('Unable to perform actions on this workspace 0');
+                  throw new Error('Unable to perform actions on this workspace');
                 }
               }
             });
           } else if (wsData.linkShared) {
             if (req.method !== 'GET') {
-              throw new Error('Unable to perform actions on this workspace 1');
+              throw new Error('Unable to perform actions on this workspace');
             }
           } else {
-            throw new Error('Unable to perform actions on this workspace 2');
+            throw new Error('Unable to perform actions on this workspace');
           }
         }
       } catch (eRr) {
