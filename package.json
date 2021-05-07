@@ -99,7 +99,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.20.5",
     "husky": "^4.2.5",
-    "json": "^9.0.6",
+    "json": "^11.0.0",
     "nodemon": "^2.0.4",
     "nps": "^5.10.0",
     "nps-utils": "^1.7.0",
