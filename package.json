@@ -65,7 +65,7 @@
     "passport-jwt": "^4.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
     "passport-local": "^1.0.0",
-    "passport-saml": "^2.0.2",
+    "passport-saml": "^3.2.4",
     "passport-saml-metadata": "^2.3.0",
     "password-generator": "^2.3.2",
     "project-name-generator": "^2.1.7",
