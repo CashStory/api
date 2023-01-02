@@ -69,7 +69,7 @@
     "passport-saml-metadata": "^2.3.0",
     "password-generator": "^2.3.2",
     "project-name-generator": "^2.1.7",
-    "prom-client": "^12.0.0",
+    "prom-client": "^14.1.1",
     "redis": "^3.0.2",
     "redis-server": "^1.2.2",
     "request": "^2.88.2",
